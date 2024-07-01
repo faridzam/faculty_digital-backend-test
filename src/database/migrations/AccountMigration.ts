@@ -6,7 +6,7 @@ export async function AccountMigration() {
       CREATE TABLE IF NOT EXISTS accounts (
         id SERIAL PRIMARY KEY,
         username VARCHAR(30) UNIQUE NOT NULL,
-        password VARCHAR(72) NOT NULL,
+        password VARCHAR(72) NOT NULL
       );
     `)
     console.log('Account migration complete.');

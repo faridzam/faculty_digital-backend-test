@@ -26,7 +26,8 @@
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.11.5",
     "pg-pool": "^3.6.2",
-    "pg-promise": "^11.7.8"
+    "pg-promise": "^11.7.8",
+    "ws": "^8.17.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
@@ -37,6 +38,7 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.12.13",
     "@types/pg": "^8.11.6",
+    "@types/ws": "^8.5.10",
     "nodemon": "^3.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
