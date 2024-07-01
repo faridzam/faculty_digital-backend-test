@@ -66,4 +66,16 @@ jobs:
           docker pull faridzam/faculty_digital-backend-test:master
           docker stop faculty_digital-backend-test
           docker rm faculty_digital-backend-test
-          docker container run -d --restart always --name faculty_digital-backend-test -p 8002:8002 faridzam/faculty_digital-backend-test:master
+          docker container run -d \
+          --restart always \
+          --name faculty_digital-backend-test \
+          -p 8002:8002 \
+          -e ORIGIN=${{secrets.ORIGIN}} \
+          -e PORT=${{secrets.PORT}} \
+          -e DB_USER=${{secrets.DB_USER}} \
+          -e DB_PASSWORD=${{secrets.DB_PASSWORD}} \
+          -e DB_HOST=${{secrets.DB_HOST}} \
+          -e DB_PORT=${{secrets.DB_PORT}} \
+          -e DB_NAME=${{secrets.DB_NAME}} \
+          -e JWT_SECRET=${{secrets.JWT_SECRET}} \
+          faridzam/faculty_digital-backend-test:master
