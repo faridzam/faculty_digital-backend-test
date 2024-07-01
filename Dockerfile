@@ -2,6 +2,8 @@ FROM node:22-alpine
 
 WORKDIR /app
 
+ENV PORT=8001
+
 COPY package*.json ./
 
 RUN npm cache clean --force
