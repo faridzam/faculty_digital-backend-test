@@ -2,7 +2,7 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-ENV PORT=8001
+ENV PORT=8002
 
 COPY package*.json ./
 
