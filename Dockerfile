@@ -11,6 +11,8 @@ RUN npm install
 COPY . .
 
 RUN npm run build:prod
+RUN npm run migrate:prod
+RUN npm run seed:prod
 
 EXPOSE 8002
 
