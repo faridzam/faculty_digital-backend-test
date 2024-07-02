@@ -1,5 +1,7 @@
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import * as dotenv from 'dotenv';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import * as http from 'http';
 import jwt from 'jsonwebtoken';
@@ -8,6 +10,8 @@ import config from './config/config';
 import { getStockController } from './controllers/stockController';
 import authRoutes from './routes/authRoutes';
 
+dotenv.config({path: process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : `.env`});
+
 const app: Application = express();
 const server = http.createServer(app);
 
@@ -15,7 +19,6 @@ const wss = new WebSocketServer({noServer: true})
 
 server.on('upgrade', (request, socket, head) => {
 
-  console.log(request.headers)
   jwt.verify(request.headers.authorization!, config.secret, (err: any, _: any) => {
     if (err) {
       socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n')
@@ -47,10 +50,12 @@ wss.on('connection', function connection(ws) {
 });
 
 app.use(cors({
-  origin: "http://89.116.32.70:3004",
+  origin: process.env.ORIGIN,
   credentials: true,
 }));
+
 app.use(bodyParser.json());
+app.use(cookieParser(process.env.JWT_SECRET))
 
 app.use('/auth', authRoutes);
 

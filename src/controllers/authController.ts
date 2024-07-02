@@ -1,9 +1,12 @@
+import * as dotenv from 'dotenv';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
 import { ApiResponseBody } from '../models/apiResponse';
 import { loginUser } from '../services/authService';
 import { extractAuthHeader } from '../utils/helper';
+
+dotenv.config({path: process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : `.env`});
 
 export const login = async (req: Request, res: Response<ApiResponseBody>) => {
   const { username, password } = req.body;
@@ -12,7 +15,7 @@ export const login = async (req: Request, res: Response<ApiResponseBody>) => {
     const token = await loginUser(username, password);
 
     if (token) {
-      res.cookie('token', token, { maxAge: 3600000 * 24, httpOnly: true, sameSite: true, secure: true})
+      res.cookie('token', token, { maxAge: 3600000 * 24, domain: process.env.ORIGIN, path: '/', httpOnly: true, sameSite: "lax", secure: false, signed: true})
       res.status(200).json({
         code: 200,
         status: 'success',
