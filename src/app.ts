@@ -47,7 +47,7 @@ wss.on('connection', function connection(ws) {
 });
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "http://89.116.32.70:3004",
   credentials: true,
 }));
 app.use(bodyParser.json());
