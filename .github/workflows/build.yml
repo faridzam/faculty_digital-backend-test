@@ -23,6 +23,7 @@ jobs:
       uses: SpicyPizza/create-envfile@v2.0
       with:
         envkey_ORIGIN: ${{ secrets.ORIGIN }}
+        envkey_DOMAIN: ${{ secrets.DOMAIN }}
         envkey_PORT: ${{ secrets.PORT }}
         envkey_DB_USER: ${{ secrets.DB_USER }}
         envkey_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
@@ -71,6 +72,7 @@ jobs:
           --name faculty_digital-backend-test \
           -p 8002:8002 \
           -e ORIGIN=${{secrets.ORIGIN}} \
+          -e DOMAIN=${{secrets.DOMAIN}} \
           -e PORT=${{secrets.PORT}} \
           -e DB_USER=${{secrets.DB_USER}} \
           -e DB_PASSWORD=${{secrets.DB_PASSWORD}} \
