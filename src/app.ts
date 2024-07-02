@@ -46,7 +46,9 @@ wss.on('connection', function connection(ws) {
 
 });
 
-app.use(cors());
+app.use(cors({
+  credentials: true,
+}));
 app.use(bodyParser.json());
 
 app.use('/auth', authRoutes);
