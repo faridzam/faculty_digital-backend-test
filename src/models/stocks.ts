@@ -10,6 +10,7 @@ export interface StockResponse {
   id: number;
   code: string;
   name: string;
+  price_leap: number;
   initial_price: number;
   current_price: number;
   time: Date;

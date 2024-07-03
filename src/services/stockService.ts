@@ -16,6 +16,7 @@ export const getStockService = async (): Promise<StockResponse[] | null> => {
     id: stock.id,
     code: stock.code,
     name: stock.name,
+    price_leap: stock.price_leap,
     initial_price: stock.initial_price,
     current_price: generateDummyCurrentPrice(stock.initial_price, stock.price_leap),
     time: new Date()
