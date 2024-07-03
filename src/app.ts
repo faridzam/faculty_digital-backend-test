@@ -26,7 +26,7 @@ const app: Application = express();
 const server = http.createServer(app);
 // const server = https.createServer(credentials, app);
 
-const wss = new WebSocketServer({server})
+const wss = new WebSocketServer({noServer: true})
 
 server.on('upgrade', (request, socket, head) => {
 
