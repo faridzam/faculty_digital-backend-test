@@ -14,7 +14,7 @@ export const login = async (req: Request, res: Response<ApiResponseBody>) => {
     const token = await loginUser(username, password);
 
     if (token) {
-      res.cookie('token', token, { maxAge: 3600000 * 24, domain: process.env.DOMAIN, path: '/', httpOnly: true, sameSite: "lax", secure: false, signed: true})
+      res.cookie('token', token, { maxAge: 3600000 * 24, domain: process.env.DOMAIN, path: '/', httpOnly: false, sameSite: "lax", secure: false, signed: true})
       res.status(200).json({
         code: 200,
         status: 'success',
@@ -32,6 +32,27 @@ export const login = async (req: Request, res: Response<ApiResponseBody>) => {
       });
     }
   } catch (error) {
+    res.status(500).json({
+      code: 500,
+      status: 'failed',
+      message: `Internal server error: ${error}`,
+      data: null
+    });
+  }
+};
+
+export const logout = async (req: Request, res: Response<ApiResponseBody>) => {
+
+  try {
+    res.clearCookie('token', { maxAge: 3600000 * 24, domain: process.env.DOMAIN, path: '/', httpOnly: false, sameSite: "lax", secure: false, signed: true})
+    res.status(200).json({
+      code: 200,
+      status: 'success',
+      message: `Logout success`,
+      data: null
+    });
+  } catch (error) {
+    res.clearCookie('token')
     res.status(500).json({
       code: 500,
       status: 'failed',
