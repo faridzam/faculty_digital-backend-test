@@ -14,7 +14,7 @@ export const login = async (req: Request, res: Response<ApiResponseBody>) => {
     const token = await loginUser(username, password);
 
     if (token) {
-      res.cookie('token', token, { maxAge: 3600000 * 24, domain: process.env.DOMAIN, path: '/', httpOnly: false, sameSite: "lax", secure: false, signed: true})
+      res.cookie('token', token, { maxAge: 3600000 * 24, domain: process.env.DOMAIN, path: '/', httpOnly: true, sameSite: "strict", secure: false, signed: true})
       res.status(200).json({
         code: 200,
         status: 'success',

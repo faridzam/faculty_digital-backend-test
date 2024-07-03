@@ -73,6 +73,8 @@ wss.on('connection', function connection(ws) {
 
 });
 
+app.set('trust proxy', 1);
+
 app.use(cors({
   origin: process.env.ORIGIN,
   credentials: true,
