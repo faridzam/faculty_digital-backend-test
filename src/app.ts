@@ -15,7 +15,7 @@ dotenv.config({path: process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : `.e
 const app: Application = express();
 const server = http.createServer(app);
 
-const wss = new WebSocketServer({noServer: true})
+const wss = new WebSocketServer({server})
 
 server.on('upgrade', (request, socket, head) => {
 
