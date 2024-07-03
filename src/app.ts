@@ -3,7 +3,8 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
 import express, { Application, NextFunction, Request, Response } from 'express';
-import * as http from 'http';
+import * as fs from 'fs';
+import * as https from 'https';
 import jwt from 'jsonwebtoken';
 import { WebSocketServer } from 'ws';
 import config from './config/config';
@@ -13,7 +14,18 @@ import authRoutes from './routes/authRoutes';
 dotenv.config({path: process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : `.env`});
 
 const app: Application = express();
-const server = http.createServer(app);
+
+// Certificate
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/obs-frontend-test.faridzam.com/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/obs-frontend-test.faridzam.com/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/obs-frontend-test.faridzam.com/chain.pem', 'utf8');
+const credentials = {
+	key: privateKey,
+	cert: certificate,
+	ca: ca
+};
+// const server = http.createServer(app);
+const server = https.createServer(credentials, app);
 
 const wss = new WebSocketServer({server})
 
