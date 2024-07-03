@@ -77,6 +77,7 @@ app.set('trust proxy', 1);
 
 app.use(cors({
   origin: process.env.ORIGIN,
+  exposedHeaders: ["Set-Cookie"],
   credentials: true,
 }));
 
