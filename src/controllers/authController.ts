@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken';
 import config from '../config/config';
 import { ApiResponseBody } from '../models/apiResponse';
 import { loginUser } from '../services/authService';
-import { extractAuthHeader } from '../utils/helper';
 
 dotenv.config({path: process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : `.env`});
 
@@ -43,8 +42,7 @@ export const login = async (req: Request, res: Response<ApiResponseBody>) => {
 };
 
 export const checkAuth = async (req: Request, res: Response<ApiResponseBody>) => {
-  const token = extractAuthHeader(req.headers['authorization']);
-
+  const token = req.signedCookies['token']
   try {
     jwt.verify(token, config.secret, (err: any, auth: any) => {
       if (err) {
